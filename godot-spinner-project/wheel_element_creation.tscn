@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://yqkhxyn1vp87"]
+
+[ext_resource type="Script" path="res://wheel_element_creation.gd" id="1_y5wj3"]
+
+[node name="wheel_element_creation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y5wj3")
+
+[node name="element_name" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 84.0
+offset_top = 131.0
+offset_right = 369.0
+offset_bottom = 162.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 86.0
+offset_top = 165.0
+offset_right = 391.0
+offset_bottom = 364.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="add_element" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="finish" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="add_element" to="." method="_on_add_element_pressed"]
+[connection signal="pressed" from="finish" to="." method="_on_finish_pressed"]

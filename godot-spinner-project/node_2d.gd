@@ -51,7 +51,7 @@ func load_saved_wheels() -> void:
 				var item = Button.new()
 				item.text = file_name
 				item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
-				$VBoxContainer.add_child(item)
+				$ScrollContainer/VBoxContainer.add_child(item)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 
@@ -92,7 +92,7 @@ func _on_wheel_save_button_pressed() -> void:
 		var file_name = wheel_name + ".json"
 		item.text = file_name
 		item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
-		$VBoxContainer.add_child(item)
+		$ScrollContainer/VBoxContainer.add_child(item)
 	else:
 		print("please provide a wheel name")
 
