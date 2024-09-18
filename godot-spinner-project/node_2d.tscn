@@ -8,9 +8,34 @@ script = ExtResource("1_l6ipv")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Button" type="Button" parent="."]
-offset_left = 85.0
-offset_top = 16.0
-offset_right = 248.0
-offset_bottom = 123.0
+offset_left = 81.0
+offset_top = 251.0
+offset_right = 244.0
+offset_bottom = 358.0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 26.0
+offset_top = -169.0
+offset_right = 93.0625
+offset_bottom = -138.0
+
+[node name="option_name" type="LineEdit" parent="."]
+offset_left = 73.0
+offset_top = 105.0
+offset_right = 249.0
+offset_bottom = 136.0
+
+[node name="ConfirmButton" type="Button" parent="."]
+offset_left = 115.0
+offset_top = 171.0
+offset_right = 203.0
+offset_bottom = 195.0
+
+[node name="option_chance" type="SpinBox" parent="."]
+offset_left = 122.0
+offset_top = 44.0
+offset_right = 205.063
+offset_bottom = 75.0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]
