@@ -9,6 +9,7 @@ func _ready() -> void:
 	$Button.connect("pressed", Callable(self, "_on_button_pressed"))
 	$ConfirmButton.connect("pressed", Callable(self, "_on_confirm_button_pressed"))
 	$wheel_save_button.connect("pressed", Callable(self, "_on_wheel_save_button_pressed"))
+	$reset_wheel.connect("pressed", Callable(self, "_on_reset_wheel_pressed"))
 	var dir = DirAccess.open("user://wheels")
 	if dir == null:
 		DirAccess.make_dir_absolute("user://wheels")
@@ -47,9 +48,15 @@ func load_saved_wheels() -> void:
 		while file_name != "":
 			if !dir.current_is_dir() and file_name.ends_with(".json"):
 				print("Saved wheel: ", file_name)
-				load_wheel(file_name)
+				var item = Button.new()
+				item.text = file_name
+				item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
+				$VBoxContainer.add_child(item)
 			file_name = dir.get_next()
 		dir.list_dir_end()
+
+func _on_wheel_button_pressed(file_name: String) -> void:
+	load_wheel(file_name)
 
 func load_wheel(file_name: String) -> void:
 	var file = FileAccess.open(save_path + file_name, FileAccess.READ)
@@ -81,5 +88,15 @@ func _on_wheel_save_button_pressed() -> void:
 	if wheel_name != "":
 		save_wheel(wheel_name)
 		$wheel_name.text = ""
+		var item = Button.new()
+		var file_name = wheel_name + ".json"
+		item.text = file_name
+		item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
+		$VBoxContainer.add_child(item)
 	else:
 		print("please provide a wheel name")
+
+
+func _on_reset_wheel_pressed() -> void:
+	options.clear()
+	print("Wheel has been reset")
