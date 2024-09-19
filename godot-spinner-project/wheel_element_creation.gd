@@ -4,6 +4,8 @@ var elements = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if Global.elements != null:
+		Global.elements.clear()
 	pass # Replace with function body.
 
 
@@ -24,7 +26,6 @@ func _on_add_element_pressed() -> void:
 
 
 func _on_finish_pressed() -> void:
-	var wheel_scene = load("res://node_2d.tscn")
 	get_tree().change_scene_to_file("res://node_2d.tscn")
 	print("This is what the elements are: ", elements)
 	print("there are in total ", Global.element_amount, " elements")

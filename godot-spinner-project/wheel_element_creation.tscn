@@ -31,18 +31,18 @@ layout_mode = 2
 
 [node name="add_element" type="Button" parent="."]
 layout_mode = 0
-offset_left = 190.0
+offset_left = 166.0
 offset_top = 169.0
-offset_right = 252.0
-offset_bottom = 197.0
+offset_right = 272.0
+offset_bottom = 200.0
 text = "add element"
 
 [node name="finish" type="Button" parent="."]
 layout_mode = 0
-offset_left = 200.0
-offset_top = 247.0
+offset_left = 192.0
+offset_top = 207.0
 offset_right = 243.0
-offset_bottom = 279.0
+offset_bottom = 239.0
 text = "finish"
 
 [connection signal="pressed" from="add_element" to="." method="_on_add_element_pressed"]

@@ -11,11 +11,12 @@ func _ready() -> void:
 	$ConfirmButton.connect("pressed", Callable(self, "_on_confirm_button_pressed"))
 	$wheel_save_button.connect("pressed", Callable(self, "_on_wheel_save_button_pressed"))
 	$reset_wheel.connect("pressed", Callable(self, "_on_reset_wheel_pressed"))
-	if Global.elements == {}:
-		get_tree().change_scene_to_file("res://wheel_element_creation.tscn")
 	var dir = DirAccess.open("user://wheels")
 	if dir == null:
 		DirAccess.make_dir_absolute("user://wheels")
+	if Global.wheel_options != null:
+		options = Global.wheel_options
+		Global.wheel_options.clear()
 	create_elements_menu()
 	load_saved_wheels()
 
@@ -156,3 +157,8 @@ func _on_reset_wheel_pressed() -> void:
 	options.clear()
 	Global.elements.clear()
 	print("Wheel has been reset")
+
+
+func _on_modify_existing_options_pressed() -> void:
+	Global.wheel_options = options
+	get_tree().change_scene_to_file("res://modify_options.tscn")
