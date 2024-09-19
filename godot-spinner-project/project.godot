@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="godot-spinner-project"
-run/main_scene="res://node_2d.tscn"
+run/main_scene="res://wheel_element_creation.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [rendering]
 

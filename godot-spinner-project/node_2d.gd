@@ -3,6 +3,7 @@ extends Node2D
 var options = []
 var save_path = "user://wheels/"
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
@@ -10,11 +11,26 @@ func _ready() -> void:
 	$ConfirmButton.connect("pressed", Callable(self, "_on_confirm_button_pressed"))
 	$wheel_save_button.connect("pressed", Callable(self, "_on_wheel_save_button_pressed"))
 	$reset_wheel.connect("pressed", Callable(self, "_on_reset_wheel_pressed"))
+	if Global.elements == {}:
+		get_tree().change_scene_to_file("res://wheel_element_creation.tscn")
 	var dir = DirAccess.open("user://wheels")
 	if dir == null:
 		DirAccess.make_dir_absolute("user://wheels")
+	create_elements_menu()
 	load_saved_wheels()
 
+func create_elements_menu() -> void:
+	var scroll_container = $elements_wheel.get_node("ElementModifications")
+	for element in Global.elements:
+		var hbox = HBoxContainer.new()
+		var label = Label.new()
+		label.text = element
+		hbox.add_child(label)
+		var spinbox = SpinBox.new()
+		spinbox.name = element + "_spinbox"
+		hbox.add_child(spinbox)
+		hbox.name = element
+		scroll_container.add_child(hbox)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -72,9 +88,33 @@ func _on_confirm_button_pressed() -> void:
 	if $option_name.text == "":
 		print("Given input incorrect as a name is missing")
 		return
-	options.append({"name": option_name, "chance": chance})
+	var effects = {}
+	var scroll_container = $elements_wheel.get_node("ElementModifications")
+	if scroll_container != null:
+		print("scroll container found")
+	for element in Global.elements:
+		print("this is element: ", element)
+		var input_field = scroll_container.find_child(element + "_spinbox", true, false)
+		if input_field != null:
+			print("Found SpinBox for element: ", element, " with value: ", input_field.value)
+			effects[element] = input_field.value
+		else:
+			print("Could not find SpinBox for element: ", element)
+	options.append({"name": option_name, "chance": chance, "effects": effects})
 	$option_chance.value = 0
 	$option_name.text = ""
+	reset_spinbox_values()
+	
+func reset_spinbox_values() -> void:
+	var scroll_container = $elements_wheel.get_node("ElementModifications")
+
+	for child in scroll_container.get_children():
+		if child is HBoxContainer:
+			print("found HBoxContainer. child.name is: ", child.name)
+			var spinbox = child.find_child(child.name + "_spinbox", true, false)
+			if spinbox is SpinBox:
+				spinbox.value = 0
+				print("Reset SpinBox value for: ", child.name)
 
 func save_wheel(file_name: String) -> void:
 	var file = FileAccess.open(save_path + file_name + ".json", FileAccess.WRITE)
@@ -99,4 +139,5 @@ func _on_wheel_save_button_pressed() -> void:
 
 func _on_reset_wheel_pressed() -> void:
 	options.clear()
+	Global.elements.clear()
 	print("Wheel has been reset")
