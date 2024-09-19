@@ -79,8 +79,13 @@ func load_wheel(file_name: String) -> void:
 	if file != null:
 		var data = JSON.parse_string(file.get_as_text())
 		file.close()
-		options = data
-		print("Loaded wheel: ", options)
+		if typeof(data) == TYPE_DICTIONARY:
+			options = data.get("options", [])
+			Global.elements = data.get("elements", [])
+			print("Loaded wheel: ", options)
+			print("Loaded elements: ", Global.elements)
+		else:
+			print("Error: Invalid wheel data format.")
 
 func _on_confirm_button_pressed() -> void:
 	var option_name = $option_name.text
@@ -119,22 +124,32 @@ func reset_spinbox_values() -> void:
 func save_wheel(file_name: String) -> void:
 	var file = FileAccess.open(save_path + file_name + ".json", FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify(options))
+		var wheel_data = {
+			"options": options,
+			"elements": Global.elements
+		}
+		file.store_string(JSON.stringify(wheel_data))
 		file.close()
 
 
 func _on_wheel_save_button_pressed() -> void:
 	var wheel_name = $wheel_name.text
-	if wheel_name != "":
+	if wheel_name == "":
+		print("please provide a wheel name")
+	else:
 		save_wheel(wheel_name)
 		$wheel_name.text = ""
-		var item = Button.new()
 		var file_name = wheel_name + ".json"
-		item.text = file_name
-		item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
-		$ScrollContainer/VBoxContainer.add_child(item)
-	else:
-		print("please provide a wheel name")
+		var exists = false
+		for child in $ScrollContainer/VBoxContainer.get_children():
+			if child is Button and child.text == file_name:
+				exists = true
+				break
+		if not exists:
+			var item = Button.new()
+			item.text = file_name
+			item.connect("pressed", Callable(self, "_on_wheel_button_pressed").bind(file_name))
+			$ScrollContainer/VBoxContainer.add_child(item)
 
 
 func _on_reset_wheel_pressed() -> void:

@@ -17,6 +17,7 @@ offset_left = 84.0
 offset_top = 131.0
 offset_right = 369.0
 offset_bottom = 162.0
+placeholder_text = "name of element"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
@@ -34,6 +35,7 @@ offset_left = 190.0
 offset_top = 169.0
 offset_right = 252.0
 offset_bottom = 197.0
+text = "add element"
 
 [node name="finish" type="Button" parent="."]
 layout_mode = 0
@@ -41,6 +43,7 @@ offset_left = 200.0
 offset_top = 247.0
 offset_right = 243.0
 offset_bottom = 279.0
+text = "finish"
 
 [connection signal="pressed" from="add_element" to="." method="_on_add_element_pressed"]
 [connection signal="pressed" from="finish" to="." method="_on_finish_pressed"]
