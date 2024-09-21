@@ -43,16 +43,17 @@ func save_modified_options() -> void:
 	var vbox = $Options_Container/VBoxContainer
 	for hbox in vbox.get_children():
 		var option_name = hbox.get_child(1).text
+		var old_name = hbox.get_child(1).name.replace("_name", "")
 		var option_chance = hbox.get_child(3).value
 
 		var effects = {}
 		for element in Global.elements:
-			var element_spinbox = hbox.get_node(option_name + "_" + element + "_spinbox")
+			var element_spinbox = hbox.get_node(old_name + "_" + element + "_spinbox")
 			effects[element] = element_spinbox.value
 
 		# Find and update the corresponding option in Global.options
 		for option in Global.wheel_options:
-			if option["name"] == option_name:
+			if option["name"] == hbox.get_child(1).name.replace("_name", ""):
 				option["name"] = option_name
 				option["chance"] = option_chance
 				option["effects"] = effects

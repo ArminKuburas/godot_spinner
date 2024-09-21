@@ -8,10 +8,6 @@ var save_path = "user://wheels/"
 func _ready() -> void:
 	randomize()
 	print("Type of options at the start of this scene: ", typeof(options))
-	$Button.connect("pressed", Callable(self, "_on_button_pressed"))
-	$ConfirmButton.connect("pressed", Callable(self, "_on_confirm_button_pressed"))
-	$wheel_save_button.connect("pressed", Callable(self, "_on_wheel_save_button_pressed"))
-	$reset_wheel.connect("pressed", Callable(self, "_on_reset_wheel_pressed"))
 	var dir = DirAccess.open("user://wheels")
 	if dir == null:
 		DirAccess.make_dir_absolute("user://wheels")
@@ -168,3 +164,8 @@ func _on_reset_wheel_pressed() -> void:
 func _on_modify_existing_options_pressed() -> void:
 	Global.wheel_options = options
 	get_tree().change_scene_to_file("res://modify_options.tscn")
+
+
+func _on_modify_elements_pressed() -> void:
+	Global.wheel_options = options
+	get_tree().change_scene_to_file("res://modify_elements.tscn")
