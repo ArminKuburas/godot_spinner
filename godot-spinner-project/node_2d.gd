@@ -7,6 +7,7 @@ var save_path = "user://wheels/"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
+	print("Type of options at the start of this scene: ", typeof(options))
 	$Button.connect("pressed", Callable(self, "_on_button_pressed"))
 	$ConfirmButton.connect("pressed", Callable(self, "_on_confirm_button_pressed"))
 	$wheel_save_button.connect("pressed", Callable(self, "_on_wheel_save_button_pressed"))
@@ -14,9 +15,14 @@ func _ready() -> void:
 	var dir = DirAccess.open("user://wheels")
 	if dir == null:
 		DirAccess.make_dir_absolute("user://wheels")
-	if Global.wheel_options != null:
-		options = Global.wheel_options
+	print("I am here")
+	if Global.wheel_options != []:
+		print("inside if statement that checks if the global wheel options is null or not")
+		print("Type of options: ", typeof(options))
+		print("This is wheel options", Global.wheel_options)
+		options = Global.wheel_options.duplicate(true)
 		Global.wheel_options.clear()
+	print("Type of options: ", typeof(options))
 	create_elements_menu()
 	load_saved_wheels()
 
@@ -91,13 +97,12 @@ func load_wheel(file_name: String) -> void:
 func _on_confirm_button_pressed() -> void:
 	var option_name = $option_name.text
 	var chance = $option_chance.value
+	print("Type of options: ", typeof(options))
 	if $option_name.text == "":
 		print("Given input incorrect as a name is missing")
 		return
 	var effects = {}
 	var scroll_container = $elements_wheel.get_node("ElementModifications")
-	if scroll_container != null:
-		print("scroll container found")
 	for element in Global.elements:
 		print("this is element: ", element)
 		var input_field = scroll_container.find_child(element + "_spinbox", true, false)
@@ -106,7 +111,8 @@ func _on_confirm_button_pressed() -> void:
 			effects[element] = input_field.value
 		else:
 			print("Could not find SpinBox for element: ", element)
-	options.append({"name": option_name, "chance": chance, "effects": effects})
+	print("Type of options: ", typeof(options))
+	options.push_back({"name": option_name, "chance": chance, "effects": effects})
 	$option_chance.value = 0
 	$option_name.text = ""
 	reset_spinbox_values()

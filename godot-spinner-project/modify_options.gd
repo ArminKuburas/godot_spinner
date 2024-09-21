@@ -39,6 +39,24 @@ func populate_options_menu() -> void:
 			hbox.add_child(element_spinbox)
 		vbox.add_child(hbox)
 
+func save_modified_options() -> void:
+	var vbox = $Options_Container/VBoxContainer
+	for hbox in vbox.get_children():
+		var option_name = hbox.get_child(1).text
+		var option_chance = hbox.get_child(3).value
+
+		var effects = {}
+		for element in Global.elements:
+			var element_spinbox = hbox.get_node(option_name + "_" + element + "_spinbox")
+			effects[element] = element_spinbox.value
+
+		# Find and update the corresponding option in Global.options
+		for option in Global.wheel_options:
+			if option["name"] == option_name:
+				option["name"] = option_name
+				option["chance"] = option_chance
+				option["effects"] = effects
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -48,4 +66,4 @@ func _on_return_to_spin_pressed() -> void:
 
 
 func _on_save_changes_pressed() -> void:
-	pass # Replace with function body.
+	save_modified_options()

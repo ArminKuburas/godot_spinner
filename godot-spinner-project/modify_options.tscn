@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_lpsup")
 
 [node name="Options_Container" type="ScrollContainer" parent="."]
+layout_mode = 0
 offset_left = 280.0
 offset_top = 207.0
 offset_right = 542.0
@@ -26,14 +27,15 @@ offset_left = 267.0
 offset_top = 453.0
 offset_right = 549.0
 offset_bottom = 509.0
-text = "save and return"
+text = "return"
 
 [node name="save_changes" type="Button" parent="."]
 layout_mode = 0
-offset_left = 267.0
-offset_top = 453.0
-offset_right = 275.0
-offset_bottom = 461.0
+offset_left = 351.0
+offset_top = 411.0
+offset_right = 462.0
+offset_bottom = 442.0
+text = "save changes"
 
 [connection signal="pressed" from="return_to_spin" to="." method="_on_return_to_spin_pressed"]
 [connection signal="pressed" from="save_changes" to="." method="_on_save_changes_pressed"]
