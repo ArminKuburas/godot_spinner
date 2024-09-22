@@ -12,13 +12,6 @@ offset_right = 408.0
 offset_bottom = 509.0
 text = "Spin Wheel"
 
-[node name="wheel_name" type="LineEdit" parent="."]
-offset_left = 299.0
-offset_top = 105.0
-offset_right = 559.0
-offset_bottom = 136.0
-placeholder_text = "Wheel Name Here"
-
 [node name="option_name" type="LineEdit" parent="."]
 offset_left = 73.0
 offset_top = 136.0
@@ -38,13 +31,6 @@ offset_left = 180.0
 offset_top = 80.0
 offset_right = 263.063
 offset_bottom = 111.0
-
-[node name="wheel_save_button" type="Button" parent="."]
-offset_left = 387.0
-offset_top = 159.0
-offset_right = 479.0
-offset_bottom = 225.0
-text = "Save Wheel"
 
 [node name="reset_wheel" type="Button" parent="."]
 offset_left = 375.0
@@ -94,9 +80,16 @@ offset_right = 509.0
 offset_bottom = 312.0
 text = "modify elements"
 
+[node name="save or load wheel" type="Button" parent="."]
+offset_left = 365.0
+offset_top = 320.0
+offset_right = 517.0
+offset_bottom = 351.0
+text = "save or load wheel"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]
-[connection signal="pressed" from="wheel_save_button" to="." method="_on_wheel_save_button_pressed"]
 [connection signal="pressed" from="reset_wheel" to="." method="_on_reset_wheel_pressed"]
 [connection signal="pressed" from="modify_existing_options" to="." method="_on_modify_existing_options_pressed"]
 [connection signal="pressed" from="modify_elements" to="." method="_on_modify_elements_pressed"]
+[connection signal="pressed" from="save or load wheel" to="." method="_on_save_or_load_wheel_pressed"]

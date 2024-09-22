@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddbkwqd2hv2f6"]
+
+[ext_resource type="Script" path="res://load_save_file.gd" id="1_3f7q5"]
+
+[node name="load_save_file" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3f7q5")
+
+[node name="save_files_ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 44.0
+offset_right = 982.0
+offset_bottom = 387.0
+
+[node name="save_files_VBoxContainer" type="VBoxContainer" parent="save_files_ScrollContainer"]
+layout_mode = 2
+
+[node name="wheel_save_button" type="Button" parent="."]
+offset_left = 538.0
+offset_top = 456.0
+offset_right = 635.0
+offset_bottom = 522.0
+text = "Save Wheel"
+
+[node name="wheel_name" type="LineEdit" parent="."]
+offset_left = 458.0
+offset_top = 413.0
+offset_right = 718.0
+offset_bottom = 444.0
+placeholder_text = "Wheel Name Here"
+
+[node name="return" type="Button" parent="."]
+layout_mode = 0
+offset_left = 555.0
+offset_top = 530.0
+offset_right = 613.0
+offset_bottom = 561.0
+text = "return"
+
+[connection signal="pressed" from="wheel_save_button" to="." method="_on_wheel_save_button_pressed"]
+[connection signal="pressed" from="return" to="." method="_on_return_pressed"]
