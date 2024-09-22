@@ -5,6 +5,7 @@ var total_chance = 0.0
 var slices = []
 var colors = []
 var is_spinning = false
+var slice_amount = 0
 
 func _ready() -> void:
 	# Prepare the initial wheel if options exist
@@ -25,6 +26,7 @@ func update_wheel():
 	for option in options:
 		var slice_angle = option.chance / total_chance * PI * 2.0
 		var slice = create_slice(start_angle, slice_angle)
+		slice_amount += 1
 		slices.append(slice)
 
 		# Determine color based on slice size
@@ -44,7 +46,7 @@ func update_wheel():
 
 func create_slice(start_angle: float, slice_angle: float) -> PackedVector2Array:
 	var slice = PackedVector2Array()
-	var segments = 30  # Number of segments for smoothness
+	var segments = slice_amount  # Number of segments for smoothness
 	slice.append(Vector2(0, 0))  # Center of the circle
 	for i in range(segments + 1):
 		var angle = start_angle + i * slice_angle / segments
@@ -60,7 +62,7 @@ func merge_slices(slices: Array) -> PackedVector2Array:
 func merge_colors(colors: Array) -> PackedColorArray:
 	var merged_colors = PackedColorArray()
 	for i in range(colors.size()):
-		for j in range(31):  # Repeat the color for each segment
+		for j in range(slice_amount):  # Repeat the color for each segment
 			merged_colors.append(colors[i])
 	return merged_colors
 
