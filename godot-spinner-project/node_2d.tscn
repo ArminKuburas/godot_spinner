@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://5wb6meichrgk"]
+[gd_scene load_steps=3 format=3 uid="uid://5wb6meichrgk"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_l6ipv"]
+[ext_resource type="Script" path="res://wheel.gd" id="2_uu016"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_l6ipv")
@@ -86,6 +87,10 @@ offset_top = 320.0
 offset_right = 517.0
 offset_bottom = 351.0
 text = "save or load wheel"
+
+[node name="wheel" type="Polygon2D" parent="."]
+position = Vector2(871.89, 312.203)
+script = ExtResource("2_uu016")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]

@@ -13,6 +13,8 @@ func _ready() -> void:
 		Global.wheel_options.clear()
 	print("Type of options: ", typeof(options))
 	create_elements_menu()
+	$wheel.options = options
+	$wheel.update_wheel()
 
 func create_elements_menu() -> void:
 	var scroll_container = $elements_wheel.get_node("ElementModifications")
@@ -32,20 +34,21 @@ func _process(delta: float) -> void:
 	pass
 	
 func spin_wheel():
-	if options.size() == 0:
-		print("No options available.")
-		return
-	var total_chance = 0
-	for option in options:
-		total_chance += option["chance"]
-	var random_value = randf() * total_chance
-	
-	var cumulative_chance = 0
-	for option in options:
-		cumulative_chance += option["chance"]
-		if random_value <= cumulative_chance && option["chance"] != 0:
-			print("Selected option: ", option["name"])
-			return
+	$wheel.spin_wheel()
+#	if options.size() == 0:
+#		print("No options available.")
+		#return
+	#var total_chance = 0
+	#for option in options:
+		#total_chance += option["chance"]
+	#var random_value = randf() * total_chance
+	#
+	#var cumulative_chance = 0
+	#for option in options:
+		#cumulative_chance += option["chance"]
+		#if random_value <= cumulative_chance && option["chance"] != 0:
+			#print("Selected option: ", option["name"])
+			#return
 
 
 func _on_button_pressed() -> void:
@@ -70,6 +73,8 @@ func _on_confirm_button_pressed() -> void:
 			print("Could not find SpinBox for element: ", element)
 	print("Type of options: ", typeof(options))
 	options.push_back({"name": option_name, "chance": chance, "effects": effects})
+	$wheel.options = options
+	$wheel.update_wheel()
 	$option_chance.value = 0
 	$option_name.text = ""
 	reset_spinbox_values()
