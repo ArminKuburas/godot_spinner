@@ -20,6 +20,7 @@ offset_bottom = 427.0
 text = "return"
 
 [node name="save" type="Button" parent="."]
+layout_mode = 0
 offset_left = 496.0
 offset_top = 353.0
 offset_right = 539.0

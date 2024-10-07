@@ -1,6 +1,8 @@
 extends Node2D
 
 var options = []
+var wheel_slices = []
+var is_spinning = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,8 +15,6 @@ func _ready() -> void:
 		Global.wheel_options.clear()
 	print("Type of options: ", typeof(options))
 	create_elements_menu()
-	$wheel.options = options
-	$wheel.update_wheel()
 
 func create_elements_menu() -> void:
 	var scroll_container = $elements_wheel.get_node("ElementModifications")

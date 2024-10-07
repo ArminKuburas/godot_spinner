@@ -22,6 +22,7 @@ offset_bottom = 387.0
 layout_mode = 2
 
 [node name="wheel_save_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 538.0
 offset_top = 456.0
 offset_right = 635.0
@@ -29,6 +30,7 @@ offset_bottom = 522.0
 text = "Save Wheel"
 
 [node name="wheel_name" type="LineEdit" parent="."]
+layout_mode = 0
 offset_left = 458.0
 offset_top = 413.0
 offset_right = 718.0
